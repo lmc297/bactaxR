@@ -9,5 +9,5 @@ License: GNU General Public License v3.0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-Depends: R (>= 3.6.0)
+Depends: R (>= 3.6.0), ape, base, cluster, dendextend, dplyr, ggplot2, ggtree, graphics, grDevices, igraph, maps, methods, phylobase, phytools, reshape2, stats, utils, viridis, viridisLite
 Imports: ape, base, cluster, dendextend, dplyr, ggplot2, ggtree, graphics, grDevices, igraph, maps, methods, phylobase, phytools, reshape2, stats, utils, viridis, viridisLite
