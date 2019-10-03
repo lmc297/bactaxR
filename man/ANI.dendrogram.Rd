@@ -2,8 +2,7 @@
 % Please edit documentation in R/anitools.R
 \name{ANI.dendrogram}
 \alias{ANI.dendrogram}
-\title{Construct a dendrogram using pairwise ANI values, and identity medoid genomes
-using dendrogram coalescence at an ANI threshold (if supplied by the user)}
+\title{Construct a dendrogram using pairwise ANI values and identity medoid genomes}
 \usage{
 ANI.dendrogram(bactaxRObject, ANI_threshold = 95, label_size = 1e-10,
   color_palette = magma(1000, begin = 0.2), xline = NULL,
@@ -43,5 +42,5 @@ If an ANI threshold of NULL is supplied, this will be NULL.
 This function constructs a dendrogram using pairwise ANI values
 calculated between genomes and the dissimilarity metric described
 by Carroll, Wiedmann, and Kovac (2019), yielding medoid genomes and
-cluster assignments at an ANI threshold (if supplied by the user).
+cluster assignments at an ANI coalescence threshold (if supplied by the user).
 }
