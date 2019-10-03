@@ -123,13 +123,12 @@ ANI.histogram <- function(bactaxRObject,
 }
 
 
-#' Construct a dendrogram using pairwise ANI values, and identity medoid genomes
-#' using dendrogram coalescence at an ANI threshold (if supplied by the user)
+#' Construct a dendrogram using pairwise ANI values and identity medoid genomes
 #'
 #' This function constructs a dendrogram using pairwise ANI values
 #' calculated between genomes and the dissimilarity metric described
 #' by Carroll, Wiedmann, and Kovac (2019), yielding medoid genomes and
-#' cluster assignments at an ANI threshold (if supplied by the user).
+#' cluster assignments at an ANI coalescence threshold (if supplied by the user).
 #'
 #' @param bactaxRObject A bactaxRObject
 #' @param ANI_threshold ANI threshold at which to assign genomes to
