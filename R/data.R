@@ -26,7 +26,6 @@
 #' data(bactaxR_fastANI)
 #' \donttest{plot.histogram <- ANI.histogram(bactaxRObject = bactaxR_fastANI, bindwidth = 0.001)}
 #' \donttest{plot.histogram}
-read.ANI(x = "data/bactaxR_fastani_output.txt")
 "bactaxR_fastANI"
 
 
@@ -58,7 +57,6 @@ read.ANI(x = "data/bactaxR_fastani_output.txt")
 #' \donttest{plot.tree <- phylo.discrete_trait_OTU(phylo = bactaxR_phylo,
 #' phylo_layout = "circular", tip_label_size = 0.5)}
 #' \donttest{plot.tree}
-bactaxR_phylo <- read.newick(file = "data/bactaxR_phylogeny.nwk")
 "bactaxR_phylo"
 
 #' bactaxR sample data: metadata
@@ -87,7 +85,6 @@ bactaxR_phylo <- read.newick(file = "data/bactaxR_phylogeny.nwk")
 #' @examples
 #' data(bactaxR_metadata)
 #' \donttest{head(bactaxR_metadata)}
-bactaxR_metadata <- read_excel("data/sup_table_s1_genomes_ani.xlsx", skip = 1)
 "bactaxR_metadata"
 
 
