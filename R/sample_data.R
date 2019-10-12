@@ -26,7 +26,7 @@
 #' data(bactaxR_fastANI)
 #' \donttest{plot.histogram <- ANI.histogram(bactaxRObject = bactaxR_fastANI, bindwidth = 0.001)}
 #' \donttest{plot.histogram}
-read.ANI(x = "data/bactaxR_fastani_output.txt")
+read.ANI(file = "data/bactaxR_fastani_output.txt")
 "bactaxR_fastANI"
 
 
