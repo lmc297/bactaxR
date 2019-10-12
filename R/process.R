@@ -1,5 +1,5 @@
 # load sample fastANI data
-bactaxR_fastANI <- read.ANI(x = "data/bactaxR_fastani_output.txt")
+bactaxR_fastANI <- read.ANI(file = "data/bactaxR_fastani_output.txt")
 # read phylogeny
 bactaxR_phylo <- read.newick(file = "data/bactaxR_phylogeny.nwk")
 # read metadata
