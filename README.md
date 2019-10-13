@@ -93,7 +93,7 @@ This should tell us that our data set has 36 genomes and 1,296 total comparisons
 5. Next, we will construct a dendrogram and identify medoid genomes with a single command. Most researchers have relied on a <a href="https://www.nature.com/articles/s41467-018-07641-9">genomospecies threshold of 95</a>, so let's use that as a threshold for identifying medoid genomes here. To build a dendrogram and identify medoid genomes at a 95 ANI genomospecies threshold, run the following command:
 
 ```
-dend <- ANI.dendrogram(bactaxRObject = ani, ANI_threshold = 95, xline = c(4,5,6,7.5), xlinecol = c("#ffc425", "#f37735", "deeppink4", "black"), label_size = 3)
+dend <- ANI.dendrogram(bactaxRObject = ani, ANI_threshold = 95, xline = c(4,5,6,7.5), xlinecol = c("#ffc425", "#f37735", "deeppink4", "black"), label_size = 0.5)
 ```
 
 This command:
@@ -101,6 +101,7 @@ This command:
 * Constructs a dendrogram, using the methods described in the paper, with ANI dissimilarity plotted along the X-axis
 * Identifies medoid genomes at a 95 ANI threshold, using the ```ANI_threshold``` parameter
 * Annotates the dendrogram using vertical lines at the specified ANI dissimilarity (i.e., X-axis) threshold(s), using the ```xline``` parameter for X-axis position and the ```xlinecol``` parameter for color information (here, we have vertical lines at dissimilarity values of 4, 5, 6, and 7.5, which correspond to ANI values of 96, 95, 94, and 92.5, respectively; these parameters are just for annotating the dendrogram plot, and have no analytical value/effect on the identification of medoid genomes or dendrogram construction)
+* Annotates the dendrogram using tip labels with size 0.5 (```label_size = 0.5```; by default, this is set to an arbitrarily small number so that tip labels are hidden)
 
 See ```?ANI.dendrogram``` for a complete list of options.
 
