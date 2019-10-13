@@ -60,7 +60,7 @@ library(bactaxR)
 
 Click <a href="https://raw.githubusercontent.com/lmc297/bactaxR/master/data/bactaxR_fastani_output.txt">here</a> to download the data set. This tab-separated file was produced by FastANI, with query genomes in the first column, reference genomes in the second column, and ANI values in the third column.
 
-Feel free to save this file in the directory of your choice; if you would like to follow along with this tutorial exactly, using identical path/file names, save this file in your home directory as ```bactaxR_fastani_output.txt```.
+Feel free to save this file in the directory of your choice; if you would like to follow along with this tutorial exactly, using identical path/file names, save this file in your **home** directory as ```bactaxR_fastani_output.txt```.
 
 2. Open RStudio; if you have not already installed ```bactaxR```, follow the installation instructions above.
 
@@ -156,4 +156,212 @@ This command:
 * Constructs a graph, drawing an edge between any two genomes which share an ANI value greater than or equal to ```ANI_threshold``` (here, we set this to 95)
 * Colors nodes (i.e., points) using the named vector ```metadata``` (here, we used clusters identified in step 6 at a 95 ANI threshold)
 * Annotate and color the graph according to various user-supplied parameters (see ```?ANI.graph``` for more details)
+
+### Tutorial 2: Annotate a phylogeny using discrete traits
+
+1. For this tutorial, we're going to annotate a phylogeny constructed using 79 marker genes identified in 2,231 *B. cereus* group genomes, using discrete metadata (i.e., species assignments and presence/absence of phenotypic traits).
+
+Click <a href="https://raw.githubusercontent.com/lmc297/bactaxR/master/data/bactaxR_phylogeny.nwk">here</a> to download the phylogeny (in <a href="https://en.wikipedia.org/wiki/Newick_format">Newick</a> format).
+
+Feel free to save this file in the directory of your choice; if you would like to follow along with this tutorial exactly, using identical path/file names, save this file in your **home** directory as ```bactaxR_phylogeny.nwk```.
+
+2. Click <a href="https://github.com/lmc297/bactaxR/blob/master/data/sup_table_s1_genomes_ani.xlsx">here</a>, and click "Download" to download a Microsoft Excel file which contains metadata for all 2,231 genomes (i.e., Supplementary Table S1 from the paper).
+
+Feel free to save this file in the directory of your choice; if you would like to follow along with this tutorial exactly, using identical path/file names, save this file in your **home** directory as ```sup_table_s1_genomes_ani.xlsx``` (note that if you download the file as described here, it will likely be stored in your Downloads directory; please move it to your home directory if you would like to use exact path names).
+
+3. Open RStudio; if you have not already installed ```bactaxR```, follow the installation instructions above.
+
+4. If you have not already done so, load ```bactaxR``` using the following command:
+
+```
+library(bactaxR)
+```
+
+5. If you have not already done so, load the ```phytools``` package using the following command:
+
+```
+library(phytools)
+```
+
+6. If you have not already done so, load the ```readxl``` package using the following command:
+
+```
+library(readxl)
+```
+
+
+7. Read the phylogeny into R using the ```read.newick``` function in ```phytools```, via the following command (replace ```~/bactaxR_phylogeny.nwk``` with the path to your own file, if necessary):
+
+```
+tree <- read.newick(file = "~/bactaxR_phylogeny.nwk")
+```
+
+If we run the command ```tree```, we can see that our phylogeny has 2,231 tips (i.e., genomes) and is unrooted.
+
+8. Read the metadata into R using the ```read_excel``` funtion in the ```readxl``` package, via the following command (replace ```~/sup_table_s1_genomes_ani.xlsx``` with the path to your own file, if necessary):
+
+```
+x <- read_excel(path = "~/sup_table_s1_genomes_ani.xlsx", skip = 1)
+```
+
+We can get a summary of our metadata by running ```summary(x)```
+
+9. We need to make sure our tree tip labels match the isolate names in our metadata file (i.e., those in the Study ID column); if we type ```table(tree$tip.label%in%x$`Study IDa,b`)```, we can see see that some of our tree tip labels cannot be found in StudyID column in our metadata table. This is because some of our tree tip labels have dashes instead of underscores. To replace all dashes in our tree tip labels with underscores, run the following command:
+
+```
+tree$tip.label <- gsub(pattern = "-", replacement = "_", x = tree$tip.label)
+```
+
+If we type ```table(tree$tip.label%in%x$`Study IDa,b`)```, we can now see that all of our tip labels can be found in our metadata Study ID column.
+
+10. Let's treat "*B. manliponensis*", the most distant member of the group, as an outgroup along which we can root our tree. To do so, run the following command:
+
+```
+tree <- root(tree, outgroup = "B_manliponensis_JCM_15802_TYPE_STRAIN.fna")
+```
+
+If we run ```tree```, we should see that our tree is now rooted.
+
+11. Let's color our tree using the ```phylo.discrete_trait_OTU``` function in ```bactaxR``` and genomospecies assignments produced at a 92.5 ANI threshold (see the column of our metadata titled "Closest Medoid Genome at 92.5 ANI Threshold (ANI)"). 
+
+If we use the command ```?phylo.discrete_trait_OTU```, we can see that we need to supply a named list to ```trait_list```, where the names correspond to the traits (i.e., genomospecies assignments), and the vectors under each name correspond to the taxa associated with each name (i.e., each genome assigned to a particular genomospecies).
+
+Let's run the following command to create a vector named ```metadata.92_5```; this vector is identical to our column "Closest Medoid Genome at 92.5 ANI Threshold (ANI)", except we are discarding all of the information after a "(" character (i.e., we are removing the ANI values appended to each medoid genome):
+
+```
+metadata.92_5 <- unlist(lapply(strsplit(x = x$`Closest Medoid Genome at 92.5 ANI Threshold (ANI)`, split = "\\("), "[[", 1))
+```
+
+If we run ```table(metadata.92_5)```, we can see the number of genomes assigned to each genomospecies.
+
+12. Let's name the vector of genomospecies assignments (```metadata.92_5```) using the corresponding Study IDs (which match tip labels found in the tree):
+
+```
+names(metadata.92_5) <- x$`Study IDa,b`
+```
+
+13. To make the list more interpretable, run each of the following commands below; these will replace the genomospecies medoid genome names with their respective names proposed in the manuscript:
+
+```
+metadata.92_5 <- gsub(pattern = "Bacillus_anthracis_GCF_001683155_1_ASM168315v1_genomic.fna", replacement = "B. mosaicus ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "B_bingmayongensis_FJAT-13831_TYPE_STRAIN.fna", replacement = "B. bingmayongensis ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002568015_1_ASM256801v1_genomic.fna", replacement = "B. cereus s.s. ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cytotoxicus_GCF_002251005_2_ASM225100v2_genomic.fna", replacement = "B. cytotoxicus ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "B_gaemokensis_KCTC_13318_TYPE_STRAIN.fna", replacement = "B. gaemokensis ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002559215_1_ASM255921v1_genomic.fna", replacement = "B. luti ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "B_manliponensis_JCM_15802_TYPE_STRAIN.fna", replacement = "B. manliponensis ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002550135_1_ASM255013v1_genomic.fna", replacement = "B. mycoides ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002576795_1_ASM257679v1_genomic.fna", replacement = "B. paramycoides ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_pseudomycoides_GCF_002588885_1_ASM258888v1_genomic.fna", replacement = "B. pseudomycoides ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "B_toyonensis_BCT_7112_TYPE_STRAIN.fna", replacement = "B. toyonensis ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002583515_1_ASM258351v1_genomic.fna", replacement = "Unknown B. cereus group Species 13", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002550855_1_ASM255085v1_genomic.fna", replacement = "Unknown B. cereus group Species 14 ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002559665_1_ASM255966v1_genomic.fna", replacement = "Unknown B. cereus group Species 15 ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002578045_1_ASM257804v1_genomic.fna", replacement = "Unknown B. cereus group Species 16 ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_cereus_GCF_002584535_1_ASM258453v1_genomic.fna", replacement = "Unknown B. cereus group Species 17 ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_mycoides_GCF_000746925_1_BHP_1_genomic.fna", replacement = "B. clarus ", x = metadata.92_5)
+metadata.92_5 <- gsub(pattern = "Bacillus_pseudomycoides_GCF_002552625_1_ASM255262v1_genomic.fna", replacement = "Unknown B. cereus group Species 18", x = metadata.92_5)
+```
+
+14. Remove the NA value (produced due to the footer in the metadata Excel sheet) using the following function:
+
+```
+metadata.92_5 <- na.omit(metadata.92_5)
+```
+
+If we run ```table(metadata.92_5)```, we should see that our genomospecies genome names have been repaced with species names.
+
+15. We can now construct the named list that we will supply to ```trait_list```. To construct this list, we'll first initiate an empty list, and assign it to the variable name ```clades.92_5```:
+
+```
+clades.92_5 <- list()
+```
+
+16. Now run the following, which will loop through each genomospecies in our named vector (```metadata.92_5```), identify all genomes which belong to that genomospecies, and store it in our list, ```clades.92_5```:
+
+```
+for (i in 1:length(unique(metadata.92_5))){
+  myclust <- as.character(unique(metadata.92_5)[i])
+  tiplabs <- names(metadata.92_5)[which(metadata.92_5==myclust)]
+  clades.92_5[[myclust]] <- tiplabs
+}
+```
+
+If we type ```names(clades.92_5)```, we should see that our list has named elements, with one per genomospecies.
+
+17. Let's create a color palette for our tree by running the following function, which uses the ```viridis``` palette to color known/proposed species, and colors the root of the tree and unknown species black:
+
+```
+pal.tree_92_5 <- c("black", viridis(option = "viridis", n = 12), rep("black", 6))
+```
+
+18. We can finally color our phylogeny using the ```phylo.discrete_trait_OTU``` function in ```bactaxR```by running the following:
+
+```
+tree_92_5 <- phylo.discrete_trait_OTU(phylo = tree, trait_list = clades.92_5,
+                                        color_palette = pal.tree_92_5,
+                                        phylo_layout = "circular", tip_label_size = 0.5)
+```
+
+This command:
+
+* Uses ```phylo.discrete_trait_OTU``` to color the phylogeny using a named list, ```clades.92_5```
+* Colors the respective clusters using the provided ```color_palette```
+* Displays the phylogeny in a circular layout with a tip label size of 0.5
+
+To view the phylogeny, run:
+```
+tree_92_5
+```
+
+To see more phylogeny annotation options, see ```?phylo.discrete_trait_OTU```
+
+19. Let's add a heatmap to our tree to display predicted phenotypic information (i.e., anthrax toxin, cereulide, and Cry/Cyt toxin production) for our isolates. If we type ```?phylo.discrete_trait_heatmap```, we see that we need to supply a data frame to ```trait_data_frame```, where each row corresponds to an isolate and each column to a trait.
+
+To construct a trait data frame, with row names which match our Study ID/tree tip labels, run the following command:
+
+```
+traitmap <- data.frame(x$`Anthrax toxin-encoding cya, lef, and pagAc`,
+                       x$`Cereulide synthetase-encoding cesABCDc`,
+                       x$`Known Cry- and/or Cyt-encoding genesd`,
+                       row.names = x$`Study IDa,b`)
+```
+
+20. Let's change our column names to the trait which they represent:
+
+```
+colnames(traitmap) <- c("Anthrax", "Cereulide", "Thuringiensis")
+```
+
+21. Run each of the following commands to replace cells which correspond to the absence of genes/a trait with a numerical character (i.e., "0", "1", or "2" for Anthrax, Cereulide, and Thuringiensis traits, respectively):
+
+```
+traitmap$Anthrax <- ifelse(test = grepl(pattern = "Absent", x = traitmap$Anthrax), yes = "0", no = "Anthrax toxin genes present")
+traitmap$Cereulide <- ifelse(test = grepl(pattern = "Absent", x = traitmap$Cereulide), yes = "1", no = "Cereulide synthetase genes present")
+traitmap$Thuringiensis <- ifelse(test = grepl(pattern = "No Cry", x = traitmap$Thuringiensis), yes = "2", no = "Known Cry- and/or Cyt-encoding genes present")
+```
+
+22. Now we can add our heatmap using the following command:
+
+```
+tree_92_5.2 <- phylo.discrete_trait_heatmap(plot = tree_92_5, phylo = tree,
+                                   trait_data_frame = traitmap,
+                                   font_size = 0,
+                                   heatmap_width = 0.1,
+                                   heatmap_offset = 0.3,
+                                   color_palette = c("#DE49681A", "#8C29811A", "#22A8841A" , "#DE4968FF", "#8C2981FF", "#22A884FF"))
+```
+
+This command:
+
+* Adds a heatmap to our plot, ```tree_92_5```, using our phylogeny (```tree```) and our trait data frame (```traitmap```)
+* Removes trait names from the heatmap (```font_size = 0```)
+* Displays the heatmap with corresponding width and offset parameters
+* Annotates the heatmap using the specified color palette
+
+If we run the following, we can view our phylogeny with the heatmap added:
+```
+tree_92_5.2 
+```
+
 
