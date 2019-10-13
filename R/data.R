@@ -1,3 +1,15 @@
+#' test
+#'
+#' @docType data
+#'
+#' @usage data(test)
+#'
+#' @format A data frame
+#'
+#' @keywords datasets
+#'
+"test"
+
 #' bactaxR sample data: phylogeny
 #'
 #' Phylogenomic data from a
