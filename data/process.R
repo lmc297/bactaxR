@@ -1,3 +1,5 @@
+library(phytools)
+library(readxl)
 # load sample fastANI data
 #bactaxR_fastANI <- read.ANI(file = "data/bactaxR_fastani_output.txt")
 # read phylogeny
