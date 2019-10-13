@@ -8,5 +8,5 @@ bactaxR_data <- list(phylogeny = bactaxR_phylo, metadata = bactaxR_metadata)# AN
 print(bactaxR_data)
 print(length(bactaxR_data))
 print("bactaxR data loaded.")
-#devtools::use_data(bactaxR_data)#, overwrite = T)
-usethis::use_data(bactaxR_data, overwrite = T)
+devtools::use_data(bactaxR_phylo, bactaxR_metadata, overwrite = T)#, overwrite = T)
+#usethis::use_data(bactaxR_data, overwrite = T)
