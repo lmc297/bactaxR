@@ -54,7 +54,7 @@ library(bactaxR)
 
 ## Tutorials
 
-### Tutorial 1: Construct a dendrogram using pairwise ANI values, identify medoid genomes, and visualize medoid-based clusters in a graph
+### Tutorial 1: Construct a histogram and dendrogram using pairwise ANI values, identify medoid genomes, and visualize medoid-based clusters in a graph
 
 1. For this tutorial, we're going to use pairwise ANI values that were calculated between 36 *B. cereus* group genomes using <a href="https://github.com/ParBLiSS/FastANI">FastANI</a> (a subset of the original data set, which will save time and memory; for all 2,231 genomes used in the full data set, see Supplementary Table S1 of the paper). 
 
@@ -90,7 +90,26 @@ summary(ani)
 
 This should tell us that our data set has 36 genomes and 1,296 total comparisons; this makes sense, because 36^2 = 1,296 (i.e., these are pairwise comparisons).
 
-5. Next, we will construct a dendrogram and identify medoid genomes with a single command. Most researchers have relied on a <a href="https://www.nature.com/articles/s41467-018-07641-9">genomospecies threshold of 95</a>, so let's use that as a threshold for identifying medoid genomes here. To build a dendrogram and identify medoid genomes at a 95 ANI genomospecies threshold, run the following command:
+5. Next, we'll construct a histogram using our pairwise ANI values. To build a histogram and store it as a variable ```h```, run the following command:
+
+```
+h <- ANI.histogram(bactaxRObject = ani, bindwidth = 0.1)
+```
+
+This command:
+
+* Builds a histogram using pairwise ANI values stored in a ```bactaxRObject``` (here, we're using our ```bactaxRObject``` which we named ```ani```)
+* Uses a histogram bin width of 0.1
+
+To view the histogram, just run:
+```
+h
+```
+
+For more options for annotating/displaying your histogram, see ```?ANI.histogram```
+
+
+6. Next, we will construct a dendrogram and identify medoid genomes with a single command. Most researchers have relied on a <a href="https://www.nature.com/articles/s41467-018-07641-9">genomospecies threshold of 95</a>, so let's use that as a threshold for identifying medoid genomes here. To build a dendrogram and identify medoid genomes at a 95 ANI genomospecies threshold, run the following command:
 
 ```
 dend <- ANI.dendrogram(bactaxRObject = ani, ANI_threshold = 95, xline = c(4,5,6,7.5), xlinecol = c("#ffc425", "#f37735", "deeppink4", "black"), label_size = 0.5)
@@ -108,4 +127,33 @@ See ```?ANI.dendrogram``` for a complete list of options.
 We can see the medoid genomes identified at our specified ANI threshold (i.e., 95) by running ```dend$medoid_genomes```
 
 We can see the clusters to which all of our genomes were assigned at our specified ANI threshold using ```dend$cluster_assignments```
+
+7. Let's construct an ANI similarity graph using our pairwise ANI values, and color it using the 95 ANI cluster assignments we produced in step 6. If we look at ```?ANI.graph```, we can see that we need to supply metadata (i.e., the discrete attributes which we will use to color our graph; in our case, cluster assignment) in the form of a named vector.
+
+To do this, we'll create a vector, ```metadata```, which contains our cluster assinments:
+
+```
+metadata <- dend$cluster_assignments$Cluster
+```
+
+7. Next, we'll name our vector of cluster assignments with their associated genome labels:
+
+```
+names(metadata) <- dend$cluster_assignments$Genome
+```
+
+8. Now we can construct our graph as follows (we'll use a 95 ANI threshold like we did before):
+
+```
+ANI.graph(bactaxRObject = ani, ANI_threshold = 95,
+          metadata = metadata,
+          legend_pos_x = -1.5, show_legend = T, graphout_niter = 1000000, 
+          legend_ncol = 1, edge_color = "black")
+```
+
+This command:
+
+* Constructs a graph, drawing an edge between any two genomes which share an ANI value greater than or equal to ```ANI_threshold``` (here, we set this to 95)
+* Colors nodes (i.e., points) using the named vector ```metadata``` (here, we used clusters identified in step 6 at a 95 ANI threshold)
+* Annotate and color the graph according to various user-supplied parameters (see ```?ANI.graph``` for more details)
 
