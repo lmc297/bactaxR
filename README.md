@@ -52,6 +52,9 @@ install_github("lmc297/bactaxR")
 library(bactaxR)
 ```
 
+------------------------------------------------------------------------
+
+
 ## Tutorials
 
 ### Tutorial 1: Construct a histogram and dendrogram using pairwise ANI values, identify medoid genomes, and visualize medoid-based clusters in a graph
@@ -363,5 +366,19 @@ If we run the following, we can view our phylogeny with the heatmap added:
 ```
 tree_92_5.2 
 ```
+
+------------------------------------------------------------------------
+
+
+## References
+
+Carroll, Laura M., Martin Wiedmann, Jasna Kovac. 2019. "Proposal of a taxonomic nomenclature for the *Bacillus cereus* group which reconciles genomic definitions of bacterial species with clinical and industrial phenotypes." *bioRxiv* 779199; doi: https://doi.org/10.1101/779199.
+
+Jain, Chirag, et al. High-throughput ANI Analysis of 90K Prokaryotic Genomes Reveals Clear Species Boundaries. bioRxiv 225342; doi: https://doi.org/10.1101/225342.
+
+------------------------------------------------------------------------
+
+
+Disclaimer: bactaxR is pretty neat! However, no tool is perfect. As always, interpret your results with caution. We are not responsible for taxonomic misclassifications, misclassifications of an isolate's pathogenic potential or industrial utility, and/or misinterpretations (biological, statistical, or otherwise) of bactaxR results.
 
 
