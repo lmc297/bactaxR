@@ -70,15 +70,41 @@ Feel free to save this file in the directory of your choice; if you would like t
 library(bactaxR)
 ```
 
-4. Let's load our pairwise ANI information into a ```bactaxRObject```; this will allow us to construct dendrograms and graphs and identify medoid genomes, exactly as was done in the paper. To do so, run the following command:
+4. Let's store our pairwise ANI information as a ```bactaxRObject```; this will allow us to construct dendrograms and graphs and identify medoid genomes, exactly as was done in the paper. To do so, run the following command (replace ```~/bactaxR_fastani_output.txt``` with the path to your own file, if necessary):
 
 ```
 ani <- read.ANI(file = "~/bactaxR_fastani_output.txt")
 ```
 This command:
 
-* Uses the ```read.ANI``` function in ```bactaxR``` to read pairwise ANI values produed by FastANI 
-* Checks to make sure that these ANI values are pairwise all-vs-all ANI values (i.e., all query genomes must be identically present in the reference genome column, and vice-versa)
-* Stores genome names and pairwise comparisons as a ```bactaxRObject```
+* Uses the ```read.ANI``` function in ```bactaxR``` to read ```bactaxR_fastani_output.txt```, an output file produed by FastANI 
+* Stores genome names and pairwise comparisons as a ```bactaxRObject```, assigning it to the variable name ```ani```
 
-Note: you can use ```read.ANI``` with any headerless, tab-delimited file where query genome is in the first column, reference genome is in the second, and ANI values are in the third. Additionally, if you already have a data frame loaded into R, you can use the ```load.ANI``` function. See ```?read.ANI``` and ```?load.ANI``` for more information.
+Note: bactaxR can use pairwise ANI values calculated using any ANI tool, not just FastANI; you can use ```read.ANI``` with any headerless, tab-delimited file where query genome is in the first column, reference genome is in the second, and ANI values are in the third. Additionally, if you already have a data frame of query genomes/reference genomes/ANI values loaded into R, you can use the ```load.ANI``` function to store it as a ```bactaxRObject```. Note that both of these functions check to make sure that these ANI values are pairwise all-vs-all ANI values (i.e., all query genome names must be identically present in the reference genome column, and vice-versa). See ```?read.ANI``` and ```?load.ANI``` for more information.
+
+We can obtain a summary of our ```bactaxR``` object using the following command:
+
+```
+summary(ani)
+```
+
+This should tell us that our data set has 36 genomes and 1,296 total comparisons; this makes sense, because 36^2 = 1,296 (i.e., these are pairwise comparisons).
+
+5. Next, we will construct a dendrogram and identify medoid genomes with a single command. Most researchers have relied on a <a href="https://www.nature.com/articles/s41467-018-07641-9">genomospecies threshold of 95</a>, so let's use that as a threshold for identifying medoid genomes here. To build a dendrogram and identify medoid genomes at a 95 ANI genomospecies threshold, run the following command:
+
+```
+dend <- ANI.dendrogram(bactaxRObject = ani, ANI_threshold = 95, xline = c(4,5,6,7.5), xlinecol = c("#ffc425", "#f37735", "deeppink4", "black"), label_size = 3)
+```
+
+This command:
+
+* Constructs a dendrogram, using the methods described in the paper, with ANI dissimilarity plotted along the X-axis
+* Identifies medoid genomes at a 95 ANI threshold, using the ```ANI_threshold``` parameter
+* Annotates the dendrogram using vertical lines at the specified ANI dissimilarity (i.e., X-axis) threshold(s), using the ```xline``` parameter for X-axis position and the ```xlinecol``` parameter for color information (here, we have vertical lines at dissimilarity values of 4, 5, 6, and 7.5, which correspond to ANI values of 96, 95, 94, and 92.5, respectively; these parameters are just for annotating the dendrogram plot, and have no analytical value/effect on the identification of medoid genomes or dendrogram construction)
+
+See ```?ANI.dendrogram``` for a complete list of options.
+
+We can see the medoid genomes identified at our specified ANI threshold (i.e., 95) by running ```dend$medoid_genomes```
+
+We can see the clusters to which all of our genomes were assigned at our specified ANI threshold using ```dend$cluster_assignments```
+
