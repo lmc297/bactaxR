@@ -23,7 +23,6 @@
 #' @examples
 #' data(bactaxR_phylo)
 #' \donttest{plot.tree <- phylo.discrete_trait_OTU(phylo = bactaxR_phylo,
-#' \donttest{plot.tree <- phylo.discrete_trait_OTU(phylo = bactaxR_data$phylogeny,
 #' phylo_layout = "circular", tip_label_size = 0.5)}
 #' \donttest{plot.tree}
 "bactaxR_phylo"
