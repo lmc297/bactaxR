@@ -51,3 +51,11 @@ install_github("lmc297/bactaxR")
 ```
 library(bactaxR)
 ```
+
+## Tutorials
+
+### Tutorial 1: Construct a dendrogram using pairwise ANI values, identify medoid genomes, and visualize medoid-based clusters in a graph
+
+1. For this tutorial, we're going to use pairwise ANI values that were calculated between 36 *B. cereus* group genomes using <a href="https://github.com/ParBLiSS/FastANI">FastANI</a> (a subset of the original data set, which will save time and memory; for all 2,231 genomes used in the full data set, see Supplementary Table S1 of the paper). 
+
+Click <a href="https://raw.githubusercontent.com/lmc297/bactaxR/master/data/bactaxR_fastani_output.txt">here</a> to download the data set. Feel free to save this file in the directory of your choice; if you would like to follow along with this tutorial exactly, using identical path/file names, save this file in your home directory as ```bactaxR_fastani_output.txt```.
