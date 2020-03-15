@@ -18,7 +18,7 @@ Post issues at https://github.com/lmc297/bactaxR/issues
 
 #### If you found bactaxR and/or its source code to be useful, please cite:
   
-Carroll, Laura M., Martin Wiedmann, Jasna Kovac. 2019. "Proposal of a taxonomic nomenclature for the *Bacillus cereus* group which reconciles genomic definitions of bacterial species with clinical and industrial phenotypes." *bioRxiv* 779199; doi: https://doi.org/10.1101/779199.
+Carroll, Laura M., Martin Wiedmann, Jasna Kovac. 2020. "Proposal of a Taxonomic Nomenclature for the *Bacillus cereus* Group Which Reconciles Genomic Definitions of Bacterial Species with Clinical and Industrial Phenotypes." *mBio* 11(1): e00034-20; DOI: 10.1128/mBio.00034-20.
 
 
 ------------------------------------------------------------------------
@@ -371,6 +371,8 @@ tree_92_5.2
 
 
 ## References
+
+Carroll, Laura M., Martin Wiedmann, Jasna Kovac. 2020. "Proposal of a Taxonomic Nomenclature for the *Bacillus cereus* Group Which Reconciles Genomic Definitions of Bacterial Species with Clinical and Industrial Phenotypes." *mBio* 11(1): e00034-20; DOI: 10.1128/mBio.00034-20.
 
 Carroll, Laura M., Martin Wiedmann, Jasna Kovac. 2019. "Proposal of a taxonomic nomenclature for the *Bacillus cereus* group which reconciles genomic definitions of bacterial species with clinical and industrial phenotypes." *bioRxiv* 779199; doi: https://doi.org/10.1101/779199.
 
