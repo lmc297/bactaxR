@@ -1,7 +1,8 @@
 bibentry(bibtype = "Article",
          author = "Laura M. Carroll, Martin Wiedmann, and Jasna Kovac",
-         year = "2019",
-         title = "Proposal of a taxonomic nomenclature for the <i>Bacillus cereus</i> group which reconciles genomic definitions of bacterial species with clinical and industrial phenotypes.",
-         journal = "bioRxiv",
-         pages = "779199",
-         url = "https://www.biorxiv.org/content/10.1101/779199v1")
+         year = "2020",
+         title = "Proposal of a Taxonomic Nomenclature for the Bacillus cereus Group Which Reconciles Genomic Definitions of Bacterial Species with Clinical and Industrial Phenotypes",
+         journal = "mBio",
+         volume = "11",
+         pages = "e00034-20",
+         url = "https://mbio.asm.org/content/11/1/e00034-20")
