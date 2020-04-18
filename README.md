@@ -35,19 +35,30 @@ Carroll, Laura M., Martin Wiedmann, Jasna Kovac. 2020. "Proposal of a Taxonomic 
 install.packages("devtools")
 ```
 
-4. Load ```devtools``` by typing the following command into R Studio's console:
+4. Install ```ggtree``` from Bioconductor, if necessary, by running the following commands from R Studio's console:
+
+```
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("ggtree")
+```
+
+5. Load ```devtools``` by typing the following command into R Studio's console:
 
 ```
 library(devtools)
 ```
 
-5. Install ```bactaxR``` by typing the following command into R Studio's console:
+6. Install ```bactaxR``` by typing the following command into R Studio's console:
 
 ```
 install_github("lmc297/bactaxR")
 ```
 
-6. Load ```bactaxR``` by typing the following command into R Studio's console:
+**Note:** Users who get an error when installing ```bactaxR``` should run the following command before attempting to install `bactaxR` again: `Sys.setenv("R_REMOTES_NO_ERRORS_FROM_WARNINGS"=TRUE)`
+
+7. Load ```bactaxR``` by typing the following command into R Studio's console:
 ```
 library(bactaxR)
 ```
