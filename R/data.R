@@ -22,11 +22,11 @@
 #'
 #' @keywords datasets
 #'
-#' @references Laura M. Carroll, Martin Wiedmann, and Jasna Kovac. 2019.
+#' @references Laura M. Carroll, Martin Wiedmann, and Jasna Kovac. 2020.
 #' Proposal of a taxonomic nomenclature for the Bacillus cereus group
 #' which reconciles genomic definitions of bacterial species
 #' with clinical and industrial phenotypes
-#' bioRxiv 779199; doi: https://doi.org/10.1101/779199
+#' mBio 11(1):e00034-20; doi: 10.1128/mBio.00034-20
 #'
 #' @examples
 #' data(bactaxR_data)

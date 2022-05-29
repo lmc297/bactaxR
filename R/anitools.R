@@ -280,8 +280,9 @@ ANI.graph <- function(bactaxRObject,
   metadata <- metadata[match(target, names(metadata))]
   ig <- set_vertex_attr(graph = ig, name = "species", index = as.character(names(metadata)), value = as.character(metadata))}
   l <- layout_with_graphopt(ig, charge = graphopt_charge)
+  sorted_labels <- unique(vertex_attr(ig, "species"))
   plot(ig, layout = l, vertex.label = NA,
-       vertex.color = color_palette[as.numeric(as.factor(vertex_attr(ig, "species")))],
+       vertex.color = color_palette[as.numeric(factor(vertex_attr(ig, "species"), levels = sorted_labels))],
        vertex.size = node_size, vertex.frame.color = NA, edge.color = edge_color)
   if (!(is.null(metadata)) & show_legend == T){
   legend(x = legend_pos_x, y = legend_pos_y, c(unique(V(ig)$species)), col = color_palette, pt.bg = color_palette, pch = 21, cex = legend_cex, ncol = legend_ncol)}

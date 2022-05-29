@@ -1,7 +1,7 @@
 Package: bactaxR
 Type: Package
 Title: Bacterial taxonomy construction and evaluation in R
-Version: 0.1.0
+Version: 0.2.0
 Author: Laura M. Carroll
 Maintainer: Laura M. Carroll <laura.carroll@embl.de>
 Description: Functions for plotting and interpreting ANI values, constructing dendrograms using pairwise ANI values, identifying medoid genomes at selected genomospecies thresholds, and mapping discrete traits to phylogenies.
