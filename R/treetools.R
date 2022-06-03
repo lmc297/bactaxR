@@ -61,6 +61,8 @@ phylo.discrete_trait_OTU <- function(phylo,
 #' @param color_palette Vector of heatmap cell color(s). Defaults to
 #' one color per unique cell value using the viridis color scale.
 #' @param font_size Size of trait names. Defaults to 2.
+#' @param font_angle Angle of trait names. Defaults to 90.
+#' @param font_offset_y Vertical offset of trait names. Defaults to 0.
 #' @param heatmap_width Width of heatmap, compared to width of tree.
 #'  Defaults to 1.
 #' @param heatmap_offset Offset of heatmap to tree. Defaults to 0.5.
@@ -71,6 +73,8 @@ phylo.discrete_trait_heatmap <- function(plot,
                                          trait_data_frame,
                                          color_palette = viridis(option = "viridis", n = length(unique(as.vector(apply(X = trait_data_frame, MARGIN = 2, FUN = function(x) unique(x)))))),
                                          font_size = 2,
+                                         font_angle = 90,
+                                         font_offset_y = 0,
                                          heatmap_width = 1,
                                          heatmap_offset = 0.5){
   if (!(is.null(trait_data_frame))){

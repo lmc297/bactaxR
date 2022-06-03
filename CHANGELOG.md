@@ -2,6 +2,11 @@
 
 All noteable changes to bactaxR will be documented in this file
 
+## [0.2.1] 2022-06-03
+
+### Added
+- Added `font_angle` and `font_offset_y` parameters to the `phylo.discrete_trait_heatmap` function.
+
 ## [0.2.0] 2022-05-29
 
 ### Changed
