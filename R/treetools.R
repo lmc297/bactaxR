@@ -82,7 +82,9 @@ phylo.discrete_trait_heatmap <- function(plot,
     trait_data_frame <- trait_data_frame[match(target, rownames(trait_data_frame)),]
     if (all(phylo$tip.label == rownames(trait_data_frame))){
       p <- gheatmap(p = plot, data = trait_data_frame,
-                    font.size = font_size, width = heatmap_width,
+                    font.size = font_size, colnames_angle = font_angle,
+                    colnames_offset_y = font_offset_y,
+                    width = heatmap_width,
                     offset = heatmap_offset) +
             scale_fill_manual(values = color_palette)
       return(p)
