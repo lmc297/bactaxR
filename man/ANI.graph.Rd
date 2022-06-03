@@ -4,12 +4,21 @@
 \alias{ANI.graph}
 \title{Construct an undirected graph using pairwise ANI values}
 \usage{
-ANI.graph(bactaxRObject, ANI_threshold = 95, graphopt_charge = 0.02,
-  graphout_niter = 500, edge_color = hcl(h = 168, c = 5, l = 58, alpha
-  = 0.1), metadata = NULL, color_palette = plasma(n =
-  length(unique(metadata))), node_size = 3, show_legend = T,
-  legend_pos_x = -2, legend_pos_y = 1, legend_cex = 0.5,
-  legend_ncol = 1)
+ANI.graph(
+  bactaxRObject,
+  ANI_threshold = 95,
+  graphopt_charge = 0.02,
+  graphout_niter = 500,
+  edge_color = hcl(h = 168, c = 5, l = 58, alpha = 0.1),
+  metadata = NULL,
+  color_palette = plasma(n = length(unique(metadata))),
+  node_size = 3,
+  show_legend = T,
+  legend_pos_x = -2,
+  legend_pos_y = 1,
+  legend_cex = 0.5,
+  legend_ncol = 1
+)
 }
 \arguments{
 \item{bactaxRObject}{A bactaxRObject}

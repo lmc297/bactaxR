@@ -4,11 +4,18 @@
 \alias{phylo.discrete_trait_heatmap}
 \title{Add a discrete trait heatmap to a phylogeny}
 \usage{
-phylo.discrete_trait_heatmap(plot, phylo, trait_data_frame,
-  color_palette = viridis(option = "viridis", n =
-  length(unique(as.vector(apply(X = trait_data_frame, MARGIN = 2, FUN =
-  function(x) unique(x)))))), font_size = 2, heatmap_width = 1,
-  heatmap_offset = 0.5)
+phylo.discrete_trait_heatmap(
+  plot,
+  phylo,
+  trait_data_frame,
+  color_palette = viridis(option = "viridis", n = length(unique(as.vector(apply(X =
+    trait_data_frame, MARGIN = 2, FUN = function(x) unique(x)))))),
+  font_size = 2,
+  font_angle = 90,
+  font_offset_y = 0,
+  heatmap_width = 1,
+  heatmap_offset = 0.5
+)
 }
 \arguments{
 \item{plot}{A ggplot2/ggtree plot}
@@ -27,6 +34,10 @@ will be the same color, all cells with "cat" will be another color, etc.).}
 one color per unique cell value using the viridis color scale.}
 
 \item{font_size}{Size of trait names. Defaults to 2.}
+
+\item{font_angle}{Angle of trait names. Defaults to 90.}
+
+\item{font_offset_y}{Vertical offset of trait names. Defaults to 0.}
 
 \item{heatmap_width}{Width of heatmap, compared to width of tree.
 Defaults to 1.}

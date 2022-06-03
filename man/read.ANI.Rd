@@ -11,7 +11,7 @@ read.ANI(file)
  (or any 3+ column file, described as follows).
 The file should not have a header, and should contain 3 or more columns,
 each separated by a tab. Columns 1, 2, and 3 should contain the query genome,
-reference genome, and the associated ANI value, respectively
+reference genome, and the associated ANI value (ranging from 0 to 100), respectively
 (remaining columns will be ignored).}
 }
 \value{

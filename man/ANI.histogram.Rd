@@ -4,8 +4,15 @@
 \alias{ANI.histogram}
 \title{Construct a histogram using ANI values}
 \usage{
-ANI.histogram(bactaxRObject, bindwidth = 0.01, xmin = 79, xmax = 100,
-  xline = NULL, xlinecol = "#20A387FF", xlinetype = "dashed")
+ANI.histogram(
+  bactaxRObject,
+  bindwidth = 0.01,
+  xmin = 79,
+  xmax = 100,
+  xline = NULL,
+  xlinecol = "#20A387FF",
+  xlinetype = "dashed"
+)
 }
 \arguments{
 \item{bactaxRObject}{A bactaxRObject}

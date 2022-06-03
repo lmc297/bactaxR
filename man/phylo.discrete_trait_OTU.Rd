@@ -4,10 +4,15 @@
 \alias{phylo.discrete_trait_OTU}
 \title{Highlight taxa in a phylogeny using a discrete variable}
 \usage{
-phylo.discrete_trait_OTU(phylo, trait_list = NULL,
+phylo.discrete_trait_OTU(
+  phylo,
+  trait_list = NULL,
   color_palette = viridis(n = length(trait_list)),
-  phylo_layout = "circular", tip_label_size = 2, show_legend = T,
-  legend_position = "left")
+  phylo_layout = "circular",
+  tip_label_size = 2,
+  show_legend = T,
+  legend_position = "left"
+)
 }
 \arguments{
 \item{phylo}{A phylo object}

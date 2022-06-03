@@ -4,9 +4,15 @@
 \alias{ANI.dendrogram}
 \title{Construct a dendrogram using pairwise ANI values and identity medoid genomes}
 \usage{
-ANI.dendrogram(bactaxRObject, ANI_threshold = 95, label_size = 1e-10,
-  color_palette = magma(1000, begin = 0.2), xline = NULL,
-  xlinecol = "#20A387FF", xlinetype = "dashed")
+ANI.dendrogram(
+  bactaxRObject,
+  ANI_threshold = 95,
+  label_size = 1e-10,
+  color_palette = magma(1000, begin = 0.2),
+  xline = NULL,
+  xlinecol = "#20A387FF",
+  xlinetype = "dashed"
+)
 }
 \arguments{
 \item{bactaxRObject}{A bactaxRObject}
