@@ -2,6 +2,11 @@
 
 All noteable changes to bactaxR will be documented in this file
 
+## [0.2.2] 2022-10-06
+
+### Added
+- Added `ladderize` and `ladderize_right` parameters to the `phylo.discrete_trait_OTU` function.
+
 ## [0.2.1] 2022-06-03
 
 ### Added

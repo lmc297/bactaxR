@@ -9,6 +9,8 @@ phylo.discrete_trait_OTU(
   trait_list = NULL,
   color_palette = viridis(n = length(trait_list)),
   phylo_layout = "circular",
+  ladderize = F,
+  ladderize_right = F,
   tip_label_size = 2,
   show_legend = T,
   legend_position = "left"
@@ -27,6 +29,13 @@ viridis(n = length(trait_list)).}
 
 \item{phylo_layout}{Any ggtree phylogeny layout.
 Defaults to "circular".}
+
+\item{ladderize}{Re-order tree to have a "ladder" 
+aspect (True or False). Defaults to False.}
+
+\item{ladderize_right}{If ladderize = TRUE, show the 
+smallest clade on the right-hand side (True or False). 
+Defaults to False.}
 
 \item{tip_label_size}{Size of tip labels. Defaults to 2.}
 

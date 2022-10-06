@@ -11,7 +11,11 @@
 #' one color per trait using the viridis color scale, i.e.,
 #' viridis(n = length(trait_list)).
 #' @param phylo_layout Any ggtree phylogeny layout.
-#' Defaults to "circular".
+#' Defaults to "circular"
+#' @param ladderize Re-order tree to have a "ladder" aspect 
+#' (True or False). Defaults to False.
+#' @param ladderize_right If ladderize = TRUE, show the smallest clade 
+#' on the right-hand side (True or False). Defaults to False.
 #' @param tip_label_size Size of tip labels. Defaults to 2.
 #' @param show_legend Display legend (True or False). Defaults to True.
 #' @param legend_position Position of legend. Defaults to "left".
@@ -21,15 +25,17 @@ phylo.discrete_trait_OTU <- function(phylo,
                                      trait_list = NULL,
                                      color_palette = viridis(n = length(trait_list)),
                                      phylo_layout = "circular",
+                                     ladderize = F,
+                                     ladderize_right = F,
                                      tip_label_size = 2,
                                      show_legend = T,
                                      legend_position = "left"){
   if (!(is.null(trait_list))){
     target <- phylo$tip.label
     p <- groupOTU(phylo, trait_list)
-    p <- ggtree(p, layout = phylo_layout, aes(color = group))}
+    p <- ggtree(p, layout = phylo_layout, aes(color = group), ladderize = ladderize, right = ladderize_right)}
   else{
-    p <- ggtree(phylo, layout = phylo_layout)
+    p <- ggtree(phylo, layout = phylo_layout, ladderize = ladderize, right = ladderize_right)
   }
 
   if (phylo_layout == "circular"){
@@ -39,6 +45,7 @@ phylo.discrete_trait_OTU <- function(phylo,
     p <- p + geom_tiplab(size=tip_label_size) +
       scale_color_manual(values = color_palette)
   }
+
   if (show_legend == T){
     p <- p + theme(legend.position = legend_position)}
   return(p)
