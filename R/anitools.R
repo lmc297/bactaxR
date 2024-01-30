@@ -152,6 +152,7 @@ ANI.histogram <- function(bactaxRObject,
 #' @export
 ANI.dendrogram <- function(bactaxRObject,
                            ANI_threshold = 95,
+                           hclust.method = "average",
                            label_size = 1e-10,
                            color_palette = magma(1000, begin = 0.2),
                            xline=NULL,
@@ -166,7 +167,7 @@ ANI.dendrogram <- function(bactaxRObject,
   d <- j - s
   d.sym <- 0.5 * (d + t(d))
   d.dist <- as.dist(d.sym)
-  h <- hclust(d = d.dist, method = "average")
+  h <- hclust(d = d.dist, method = hclust.method)
   dend <- as.dendrogram(h)
   dend %>% set("labels_cex", label_size) %>% highlight_branches_col(color_palette) %>% plot(horiz=T, xlab = "Dissimilarity (100-ANI)")
   if (!(is.null(xline))){

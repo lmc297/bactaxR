@@ -2,6 +2,11 @@
 
 All noteable changes to bactaxR will be documented in this file
 
+## [0.2.3] 2024-01-30
+
+### Added
+- Added the ability to specify any hclust agglomeration method in `ANI.dendrogram` (default is "average", which was previously hard-coded as the hclust method).
+
 ## [0.2.2] 2022-10-06
 
 ### Added

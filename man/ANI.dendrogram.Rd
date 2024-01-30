@@ -7,6 +7,7 @@
 ANI.dendrogram(
   bactaxRObject,
   ANI_threshold = 95,
+  hclust.method = "average",
   label_size = 1e-10,
   color_palette = magma(1000, begin = 0.2),
   xline = NULL,
@@ -19,6 +20,9 @@ ANI.dendrogram(
 
 \item{ANI_threshold}{ANI threshold at which to assign genomes to
 clusters and identify medoid genomes. Defaults to 95.}
+
+\item{hclust.method}{Agglomeration method to pass to hclust. 
+Defaults to "average".}
 
 \item{label_size}{Size of dendrogram tip labels. Defaults to an
 arbitrarily small number (i.e., 1e-10), so that tip labels are hidden.}
